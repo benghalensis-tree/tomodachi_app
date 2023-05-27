@@ -12,7 +12,11 @@ class FeedsController < ApplicationController
 
   # GET /feeds/new
   def new
-    @feed = Feed.new
+    if params[:back]
+      @feed = Feed.new(feed_params)
+    else
+      @feed = Feed.new
+    end
   end
 
   # GET /feeds/1/edit
@@ -33,6 +37,7 @@ class FeedsController < ApplicationController
       end
     end
   end
+  # redirect_to confirm_feeds_path
 
   # PATCH/PUT /feeds/1 or /feeds/1.json
   def update
@@ -45,6 +50,10 @@ class FeedsController < ApplicationController
         format.json { render json: @feed.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm
+    @feed = Feed.new(feed_params)
   end
 
   # DELETE /feeds/1 or /feeds/1.json
@@ -63,8 +72,10 @@ class FeedsController < ApplicationController
       @feed = Feed.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+
     def feed_params
-      params.require(:feed).permit(:image)
+      params.require(:feed).permit(:image,:image_cache)
     end
+
+  
 end
