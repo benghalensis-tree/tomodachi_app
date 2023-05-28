@@ -21,6 +21,7 @@ class FeedsController < ApplicationController
 
   # GET /feeds/1/edit
   def edit
+    @feed = Feed.find(params[:id])
   end
 
   # POST /feeds or /feeds.json
