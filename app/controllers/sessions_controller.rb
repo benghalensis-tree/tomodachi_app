@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   skip_before_action :login_required, only: [:new, :create]
-  
+
   def new
   end
 
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    flas[:notice] = 'ログアウトしました'
+    flash[:notice] = 'ログアウトしました'
     redirect_to new_session_path
   end
 
